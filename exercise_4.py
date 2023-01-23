@@ -1,4 +1,6 @@
-#"Hello! my name is %s. Welcome!" % name
+from faker import Faker
+
+faker = Faker()
 class Card:
 
    def __init__(self, name, surname, company_name, adress,  email):
@@ -19,7 +21,7 @@ class BusinessContact(Card):
 
     def contact(self):
           return 'Я набираю %s та телефоную %s' %(self.number, self.name) 
-    
+   # @property
     def label_length(self):
         
         return f" long name {len(self.name)} long surname {len(self.surname)}"
@@ -40,12 +42,32 @@ class BaseContact (Card):
     
     def contact(self):
           return 'Я набираю %s та телефоную %s' %(self.personal_phone, self.name)
-
+    
     def label_length(self):
         
         return f" long name {len(self.name)} long surname {len(self.surname)}"
 
-    #def create_contacts(self):
+
+
+def create_contacts():
+ aa=input('''Введи тип візитки. Приватна-1, робоча-2:  ''')
+ bb=int(input('Введи кількість: '))
+ 
+ if aa == '1':
+     
+   name = faker.name
+   job = faker.job
+   email = faker.email()
+   personal_phone=faker.phone_number
+   compani_name=faker.company()
+   for _ in range(bb):
+    print( faker.name(), faker.email(), faker.phone_number())
+
+ elif aa =="2":
+    for _ in range(bb):
+        print(faker.name(), faker.email(), faker.phone_number(), faker.job(), faker.company())
+
+ 
         
 
 
@@ -59,6 +81,7 @@ if __name__ == "__main__":
  card_4 = BusinessContact(name='Robert', surname='Petty', company_name='Warner_Brothers_Studio_Store', adress='684 Lena Lane_Jackson',email='RobertKPetty@armyspy.com',position='model',number='5896332')
  card_5 = BusinessContact(name='Phillip', surname='Brown', company_name='Leos_Stereo', adress='2968_Pickens_Way_Athens', email='PhillipJBrown@dayrep.com',position='driver',number='8546985')
 
-print(card_5.contact())
+#print(card_5.contact())
+#print(card_3.label_length())
 
-
+create_contacts()
